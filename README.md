@@ -1,6 +1,6 @@
 # `braind v0` 🧠
 
-A script for taking a bunch of tagged, backlinked markdown notes and turning them into a beautiful, minimal knowledge base, facilitating exporting and interactions. Braind does not replicate any of the functionality of your editor or your file-finding tools. It only responds to file system changes.
+A program for taking a bunch of tagged, backlinked markdown notes and turning them into a beautiful, minimal knowledge base, facilitating exporting and interactions. Braind does not replicate any of the functionality of your editor or your file-finding tools. It only responds to file system changes.
 
 Over the course of my search for a note taking system that fit my needs, I found that sooner or later, all of them ended up reinventing the plain boring old file system. I am a believer in the Keep It Super Simple philosophy, and believed that the best note-taking system is not to be found in going up layers of abstraction, but rather in going down.
 
