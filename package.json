@@ -1,0 +1,15 @@
+{
+  "name": "braind",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:skrider/braind.git",
+  "author": "skrider <skrider@berkeley.edu>",
+  "license": "MIT",
+  "packageManager": "yarn@3.2.4",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}
