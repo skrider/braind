@@ -7,9 +7,10 @@
   "license": "MIT",
   "packageManager": "yarn@3.2.4",
   "devDependencies": {
+    "esbuild": "^0.15.10",
     "typescript": "4.8.4"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "esbuild src/braind.ts --bundle --platform=node --target=node16.17"
   }
 }

@@ -1,2 +1,4 @@
 .yarn/install-state.gz
 .yarn/sdks
+.yarn/unplugged
+node_modules
