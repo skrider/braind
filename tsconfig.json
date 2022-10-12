@@ -7,9 +7,11 @@
         "noImplicitAny": true,
         "moduleResolution": "node",
         "outDir": "build",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "strictNullChecks": true
     },
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "braind.d.ts"
     ]
 }

@@ -2,3 +2,4 @@
 .yarn/sdks
 .yarn/unplugged
 node_modules
+out

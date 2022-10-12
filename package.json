@@ -7,6 +7,8 @@
   "license": "MIT",
   "packageManager": "yarn@3.2.4",
   "devDependencies": {
+    "@types/lodash": "^4.14.186",
+    "@types/node": "^18.8.4",
     "@types/yargs": "^17.0.13",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "esbuild": "^0.15.10",
@@ -18,9 +20,12 @@
     "typescript": "*"
   },
   "scripts": {
-    "build": "esbuild src/braind.ts --bundle --platform=node --target=node16.17"
+    "build": "esbuild src/braind.ts --bundle --platform=node --target=node16.17 --outfile=out/out.js"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
+    "prettier": "^2.7.1",
+    "yaml": "^2.1.3",
     "yargs": "^17.6.0"
   }
 }

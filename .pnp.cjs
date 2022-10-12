@@ -28,6 +28,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@types/lodash", "npm:4.14.186"],\
+            ["@types/node", "npm:18.8.4"],\
             ["@types/yargs", "npm:17.0.13"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:5.40.0"],\
             ["esbuild", "npm:0.15.10"],\
@@ -36,7 +38,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-import", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:2.26.0"],\
             ["eslint-plugin-n", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:15.3.0"],\
             ["eslint-plugin-promise", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:6.0.1"],\
+            ["lodash", "npm:4.17.21"],\
+            ["prettier", "npm:2.7.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
+            ["yaml", "npm:2.1.3"],\
             ["yargs", "npm:17.6.0"]\
           ],\
           "linkType": "SOFT"\
@@ -153,6 +158,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-json5-npm-0.0.29-f63a7916bd-e60b153664.zip/node_modules/@types/json5/",\
           "packageDependencies": [\
             ["@types/json5", "npm:0.0.29"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/lodash", [\
+        ["npm:4.14.186", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.186-63caeea1e5-ee0c1368a8.zip/node_modules/@types/lodash/",\
+          "packageDependencies": [\
+            ["@types/lodash", "npm:4.14.186"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/node", [\
+        ["npm:18.8.4", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.8.4-47cc5dc538-c2b87f6b0b.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:18.8.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -526,6 +549,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["braind", "workspace:."],\
+            ["@types/lodash", "npm:4.14.186"],\
+            ["@types/node", "npm:18.8.4"],\
             ["@types/yargs", "npm:17.0.13"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:5.40.0"],\
             ["esbuild", "npm:0.15.10"],\
@@ -534,7 +559,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-import", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:2.26.0"],\
             ["eslint-plugin-n", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:15.3.0"],\
             ["eslint-plugin-promise", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:6.0.1"],\
+            ["lodash", "npm:4.17.21"],\
+            ["prettier", "npm:2.7.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
+            ["yaml", "npm:2.1.3"],\
             ["yargs", "npm:17.6.0"]\
           ],\
           "linkType": "SOFT"\
@@ -2053,6 +2081,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["lodash", [\
+        ["npm:4.17.21", {\
+          "packageLocation": "./.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/",\
+          "packageDependencies": [\
+            ["lodash", "npm:4.17.21"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["lodash.merge", [\
         ["npm:4.6.2", {\
           "packageLocation": "./.yarn/cache/lodash.merge-npm-4.6.2-77cb4416bf-ad580b4bdb.zip/node_modules/lodash.merge/",\
@@ -2300,6 +2337,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/prelude-ls-npm-1.2.1-3e4d272a55-cd192ec0d0.zip/node_modules/prelude-ls/",\
           "packageDependencies": [\
             ["prelude-ls", "npm:1.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["prettier", [\
+        ["npm:2.7.1", {\
+          "packageLocation": "./.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/",\
+          "packageDependencies": [\
+            ["prettier", "npm:2.7.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2744,6 +2790,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/yallist-npm-4.0.0-b493d9e907-343617202a.zip/node_modules/yallist/",\
           "packageDependencies": [\
             ["yallist", "npm:4.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["yaml", [\
+        ["npm:2.1.3", {\
+          "packageLocation": "./.yarn/cache/yaml-npm-2.1.3-654a90032d-9131606232.zip/node_modules/yaml/",\
+          "packageDependencies": [\
+            ["yaml", "npm:2.1.3"]\
           ],\
           "linkType": "HARD"\
         }]\
