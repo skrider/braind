@@ -11,12 +11,12 @@ title1: Neural Networks
 
 $
 	\begin{align}
-		P(C_i | x) & = \frac{P(x | C_i)P(C_i)}{P(x)} \\
-		P(C_i | x) & = \frac{
-			P(x | C_i)P(C_i)
-		}{
-			P(x)
-		}                                            \\
+P(C_i | x) & = \frac{P(x | C_i)P(C_i)}{P(x)} \\
+P(C_i | x) & = \frac{
+    P(x | C_i)P(C_i)
+}{
+    P(x)
+}                                            \\
 	\end{align}
 $
 
@@ -25,22 +25,22 @@ $
 
 $
 	\begin{align}
-		P(C_i | x) & = \frac{P(x | C_i)P(C_i)}{P(x)} \\
-		P(C_i | x) & = \frac{
-			P(x | C_i)P(C_i)
-		}{
-			P(x)
-		}                                            \\
+    P(C_i | x) & = \frac{P(x | C_i)P(C_i)}{P(x)} \\
+    P(C_i | x) & = \frac{
+        P(x | C_i)P(C_i)
+    }{
+        P(x)
+    }                                            \\
 	\end{align}
 $
 
 
 $
 	\begin{align}
-	P(C_i | x) & = \frac{P(x | C_i)P(C_i)}{P(x)} \\
-		P(C_i | x) & = \frac{
-			P(x | C_i)P(C_i)
-		}{
+P(C_i | x) & = \frac{P(x | C_i)P(C_i)}{P(x)} \\
+    P(C_i | x) & = \frac{
+        P(x | C_i)P(C_i)
+    }{
 			P(x)
 		}                                            \\
 	\end{align}
