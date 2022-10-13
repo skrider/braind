@@ -7,6 +7,7 @@ import { ReadableString, WritableString } from 'src/utils'
 
 const LATEX_ENV_REGEX = /^\$$[\w\W]*?^\$$/gm
 const SEPERATOR_STRING = '>>>>>>>'
+const SEPERATOR_REGEX = new RegExp(`/${SEPERATOR_STRING}(.*)${SEPERATOR_STRING}/mg`)
 
 const format = async function (note: BraindNote): Promise<void> {
   prettier.format(note.text, {
@@ -15,7 +16,10 @@ const format = async function (note: BraindNote): Promise<void> {
   const match = note.text.matchAll(LATEX_ENV_REGEX)
   let acc = ''
   for (const m of match) {
-    acc = acc + m[0] + '\n' + SEPERATOR_STRING + '\n'
+    acc = acc + `${SEPERATOR_STRING}
+${m[0]} 
+${SEPERATOR_STRING}
+`
   }
   const accStream = new ReadableString(acc)
   const latexindent: ChildProcess = await child_process.exec('latexindent')
@@ -31,6 +35,7 @@ const format = async function (note: BraindNote): Promise<void> {
       resultStream
     )
   }
+  acc = resultStream.toString()
   console.log(resultStream.toString())
   console.log("done")
 }
