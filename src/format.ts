@@ -55,7 +55,7 @@ const format = async function (note: BraindNote): Promise<string> {
         case ContentType.latex:
           return `${acc}
 $
-${latexindentOutputArray.shift()?.trim() ?? ''}
+${latexindentOutputArray.shift()?.trim() ?? item.content}
 $
 
 `
