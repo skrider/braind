@@ -1,3 +1,4 @@
+import { createHash } from 'crypto'
 import { Readable, Writable } from 'stream'
 
 export class ReadableString extends Readable {
@@ -28,4 +29,11 @@ export class WritableString extends Writable {
   toString (): string {
     return this.str
   }
+}
+
+export function sha1 (string: string): string {
+  const input = new ReadableString(string)
+  const hash = createHash('sha1')
+  hash.push(input)
+  return hash.digest('base64')
 }
