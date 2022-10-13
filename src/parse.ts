@@ -8,7 +8,7 @@ import YAML from 'yaml'
 // const FRONTMATTER_REGEX = /^[.-]{3}([\w\s\d]*?)\n[.-]{3}$/
 const FRONTMATTER_REGEX = /^[.-]{3}\n([\w\W]*)\n[.-]{3}/
 
-async function parse (path: string): Promise<void> {
+async function parse (path: string): Promise<BraindNote> {
   const body = fs.readFileSync(path, 'utf8')
   const config: BraindOptions = DEFAULT_OPTIONS
   const match = FRONTMATTER_REGEX.exec(body)
@@ -16,7 +16,12 @@ async function parse (path: string): Promise<void> {
     const parsedConfig: BraindOptions = YAML.parse(match[1])
     merge(config, parsedConfig)
   }
-  console.log(JSON.stringify(config))
+  const note: BraindNote = {
+    path,
+    text: body,
+    properties: config
+  }
+  return note
 }
 
 export default parse

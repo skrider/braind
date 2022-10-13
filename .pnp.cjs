@@ -30,6 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/lodash", "npm:4.14.186"],\
             ["@types/node", "npm:18.8.4"],\
+            ["@types/prettier", "npm:2.7.1"],\
             ["@types/yargs", "npm:17.0.13"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:5.40.0"],\
             ["esbuild", "npm:0.15.10"],\
@@ -176,6 +177,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-18.8.4-47cc5dc538-c2b87f6b0b.zip/node_modules/@types/node/",\
           "packageDependencies": [\
             ["@types/node", "npm:18.8.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/prettier", [\
+        ["npm:2.7.1", {\
+          "packageLocation": "./.yarn/cache/@types-prettier-npm-2.7.1-d46ada27e6-5e3f58e229.zip/node_modules/@types/prettier/",\
+          "packageDependencies": [\
+            ["@types/prettier", "npm:2.7.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -551,6 +561,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["braind", "workspace:."],\
             ["@types/lodash", "npm:4.14.186"],\
             ["@types/node", "npm:18.8.4"],\
+            ["@types/prettier", "npm:2.7.1"],\
             ["@types/yargs", "npm:17.0.13"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:5.40.0"],\
             ["esbuild", "npm:0.15.10"],\

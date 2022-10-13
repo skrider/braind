@@ -1,5 +1,6 @@
 interface BraindNote {
-  fd: number
+  path: string
+  text: string
   properties: BraindOptions
 }
 
