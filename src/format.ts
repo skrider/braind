@@ -1,13 +1,17 @@
 import child_process from 'child_process'
-import prettier from 'prettier'
 import { pipeline } from 'stream/promises'
-import { ReadableString, WritableString } from 'src/utils'
+import { ReadableString, sha1, WritableString } from 'src/utils'
 
-const LATEXINDENT_SEPARATOR = '\n\n\n>>>>>>>\n\n\n'
+const CONTENT_SEPARATOR = 'braindbraindbraind'
 
 interface FormatTemplate {
   type: ContentType
   content: string
+  contentHash: string
+}
+
+interface BatchProcessTemplate extends FormatTemplate {
+  oldIndex: number
 }
 
 enum ContentType {
@@ -16,8 +20,49 @@ enum ContentType {
   delimiter
 }
 
-const format = async function (note: BraindNote): Promise<string> {
-  const lines = note.text.split(/(?<=\n)/)
+interface FormatCache {
+  hashSet: Set<string>
+}
+
+const format = async function (note: BraindNote, cache: FormatCache): Promise<string> {
+  const parsedBody = parseBody(note.text)
+  const { latexAcc, markdownAcc } = parsedBody
+    .reduce<{
+    latexAcc: BatchProcessTemplate[]
+    markdownAcc: BatchProcessTemplate[]
+  }>(({ latexAcc, markdownAcc }, item, index) => {
+    if (!cache.hashSet.has(item.contentHash)) {
+      switch (item.type) {
+        case ContentType.markdown:
+          markdownAcc.push({
+            ...item,
+            oldIndex: index
+          })
+          break
+        case ContentType.latex:
+          latexAcc.push({
+            ...item,
+            oldIndex: index
+          })
+          break
+      }
+    }
+    return { latexAcc, markdownAcc }
+  }, {
+    latexAcc: [],
+    markdownAcc: []
+  })
+  await processExternalFormatter(latexAcc, 'latexindent --cruft=/tmp')
+  await processExternalFormatter(markdownAcc, 'markdownfmt')
+  latexAcc.concat(markdownAcc).forEach((item) => {
+    parsedBody[item.oldIndex].content = item.content
+    parsedBody[item.oldIndex].contentHash = sha1(item.content)
+  })
+  return serializeBody(parsedBody)
+}
+
+const parseBody = function (body: string): FormatTemplate[] {
+  const lines = body.split(/(?<=\n)/)
   const formatTemplate: FormatTemplate[] = []
   let state: ContentType = ContentType.markdown
   let chunk = ''
@@ -25,37 +70,35 @@ const format = async function (note: BraindNote): Promise<string> {
     const prevState: ContentType = state
     state = stateTransition(state, l)
     if (state === prevState) {
-      chunk += l
+      chunk = chunk + l
     } else {
       formatTemplate.push({
         type: prevState,
-        content: chunk
+        content: chunk,
+        contentHash: sha1(chunk)
       })
       formatTemplate.push({
         type: ContentType.delimiter,
-        content: l
+        content: l,
+        contentHash: ''
       })
       chunk = ''
     }
   }
-  const latexindentInput = formatTemplate
-    .filter(item => item.type === ContentType.latex)
-    .reduce((acc, item) => {
-      return acc + `${item.content}${LATEXINDENT_SEPARATOR}`
-    }, '')
-  const latexindentOutput: string = await processLatexindent(latexindentInput)
-  const latexindentOutputArray: string[] = latexindentOutput
-    .split(LATEXINDENT_SEPARATOR)
-  const formattedBody = formatTemplate
+  return formatTemplate
+}
+
+const serializeBody = function (parsedBody: FormatTemplate[]): string {
+  const formattedBody = parsedBody
     .filter(item => item.content.trim() !== '')
     .reduce((acc, item) => {
       switch (item.type) {
         case ContentType.markdown:
-          return acc + prettier.format(item.content, { parser: 'markdown' }).trim() + '\n'
+          return acc + item.content + '\n'
         case ContentType.latex:
           return `${acc}
 $
-${latexindentOutputArray.shift()?.trim() ?? item.content}
+${item.content}
 $
 
 `
@@ -65,17 +108,26 @@ $
   return formattedBody
 }
 
-const processLatexindent = async (input: string): Promise<string> => {
-  const latexindent = child_process.exec('latexindent --cruft=/tmp')
-  if ((latexindent.stdin == null) || (latexindent.stdout == null)) {
-    throw new Error('something went wrong with latexindent')
+const processExternalFormatter = async (input: BatchProcessTemplate[], argv: string): Promise<void> => {
+  const inputString = input
+    .reduce((acc, item) => {
+      return acc + `${item.content}${CONTENT_SEPARATOR}`
+    }, '')
+  const formatter = child_process.exec(argv)
+  if ((formatter.stdin == null) || (formatter.stdout == null)) {
+    throw new Error(`something went wrong with ${argv}`)
   }
-  const inputStream = new ReadableString(input)
+  const inputStream = new ReadableString(inputString)
   const outputStream = new WritableString()
-  await pipeline(inputStream, latexindent.stdin)
-  await pipeline(latexindent.stdout, outputStream)
-  latexindent.kill()
-  return outputStream.toString()
+  await pipeline(inputStream, formatter.stdin)
+  await pipeline(formatter.stdout, outputStream)
+  formatter.kill()
+  const output: string[] = outputStream.toString().split(CONTENT_SEPARATOR)
+  console.log(JSON.stringify(output, undefined, 2))
+  // process side effect
+  input.forEach((item, index) => {
+    item.content = output[index].trim()
+  })
 }
 
 const EQUATION_START_REGEX = /^\$\$?\s*$/

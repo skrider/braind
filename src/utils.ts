@@ -1,4 +1,5 @@
 import { createHash } from 'crypto'
+import { stat } from 'fs/promises'
 import { Readable, Writable } from 'stream'
 
 export class ReadableString extends Readable {
@@ -32,8 +33,7 @@ export class WritableString extends Writable {
 }
 
 export function sha1 (string: string): string {
-  const input = new ReadableString(string)
   const hash = createHash('sha1')
-  hash.push(input)
+  hash.push(string)
   return hash.digest('base64')
 }

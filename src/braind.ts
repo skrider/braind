@@ -12,7 +12,7 @@ const braind = async (): Promise<void> => {
     })
     .command('format', 'format a file', (yargs) => yargs.boolean('w'), async (argv) => {
       const file = await parse(argv._[1] as string)
-      const res = await format(file)
+      const res = await format(file, { hashSet: new Set() })
       if (argv.w ?? false) {
         await writeFile(file.path, res)
       } else {
