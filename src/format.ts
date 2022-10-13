@@ -66,7 +66,7 @@ $
 }
 
 const processLatexindent = async (input: string): Promise<string> => {
-  const latexindent = child_process.exec('latexindent')
+  const latexindent = child_process.exec('latexindent --cruft=/tmp')
   if ((latexindent.stdin == null) || (latexindent.stdout == null)) {
     throw new Error('something went wrong with latexindent')
   }
