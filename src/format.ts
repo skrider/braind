@@ -28,18 +28,13 @@ const format = async function (note: BraindNote, cache: FormatCache): Promise<{
   output: string
   cache: FormatCache
 }> {
-  const parsedBody = parseBody(note.text)
-
-  let misses = 0
-
+  const parsedBody = parseBody(note.body)
   const { latexAcc, markdownAcc } = parsedBody
     .reduce<{
     latexAcc: BatchProcessTemplate[]
     markdownAcc: BatchProcessTemplate[]
   }>(({ latexAcc, markdownAcc }, item, index) => {
     if (!cache.hashSet.has(item.contentHash)) {
-      misses += 1
-      console.log(item.contentHash)
       switch (item.type) {
         case ContentType.markdown:
           markdownAcc.push({
@@ -60,14 +55,21 @@ const format = async function (note: BraindNote, cache: FormatCache): Promise<{
     latexAcc: [],
     markdownAcc: []
   })
-  console.log(misses)
-  console.log(latexAcc.length)
-  console.log(markdownAcc.length)
-  await processExternalFormatter(latexAcc, 'latexindent --cruft=/tmp')
+  await Promise.all([
+    (latexAcc.length > 0) ? processExternalFormatter(latexAcc, 'latexindent --cruft=/tmp') : undefined,
+    (markdownAcc.length > 0) ? processExternalFormatter(latexAcc, 'markdownfmt') : undefined
+  ])
+  if (note.frontmatter.length > 0) {
+    const formattedFrontmatter = `---
+${(await processExternalFormatterString(note.frontmatter, 'yq')).trim()}
+---`
+    console.log(formattedFrontmatter)
+    note.frontmatter = formattedFrontmatter
+  }
   await processExternalFormatter(markdownAcc, 'markdownfmt')
   latexAcc.concat(markdownAcc).forEach((item) => {
     parsedBody[item.oldIndex].content = item.content
-    parsedBody[item.oldIndex].contentHash = hash(item.content)
+    parsedBody[item.oldIndex].contentHash = hash(item.content.trim())
   })
   cache.hashSet.clear()
   parsedBody.forEach(item => cache.hashSet.add(item.contentHash))
@@ -88,6 +90,7 @@ const parseBody = function (body: string): FormatTemplate[] {
     if (state === prevState) {
       chunk = chunk + l
     } else {
+      chunk = chunk.trim()
       formatTemplate.push({
         type: prevState,
         content: chunk,
@@ -129,20 +132,25 @@ const processExternalFormatter = async (input: BatchProcessTemplate[], argv: str
     .reduce((acc, item) => {
       return acc + `${item.content}${CONTENT_SEPARATOR}`
     }, '')
-  const formatter = child_process.exec(argv)
-  if ((formatter.stdin == null) || (formatter.stdout == null)) {
-    throw new Error(`something went wrong with ${argv}`)
-  }
-  const inputStream = new ReadableString(inputString)
-  const outputStream = new WritableString()
-  await pipeline(inputStream, formatter.stdin)
-  await pipeline(formatter.stdout, outputStream)
-  formatter.kill()
-  const output: string[] = outputStream.toString().split(CONTENT_SEPARATOR)
+  const output: string[] = (await processExternalFormatterString(inputString, argv))
+    .split(CONTENT_SEPARATOR)
   // process side effect
   input.forEach((item, index) => {
     item.content = output[index].trim()
   })
+}
+
+const processExternalFormatterString = async (input: string, argv: string): Promise<string> => {
+  const formatter = child_process.exec(argv)
+  if ((formatter.stdin == null) || (formatter.stdout == null)) {
+    throw new Error(`something went wrong with ${argv}`)
+  }
+  const inputStream = new ReadableString(input)
+  const outputStream = new WritableString()
+  await pipeline(inputStream, formatter.stdin)
+  await pipeline(formatter.stdout, outputStream)
+  formatter.kill()
+  return outputStream.toString()
 }
 
 const EQUATION_START_REGEX = /^\$\$?\s*$/
