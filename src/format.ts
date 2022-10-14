@@ -63,7 +63,6 @@ const format = async function (note: BraindNote, cache: FormatCache): Promise<{
     const formattedFrontmatter = `---
 ${(await processExternalFormatterString(note.frontmatter, 'yq')).trim()}
 ---`
-    console.log(formattedFrontmatter)
     note.frontmatter = formattedFrontmatter
   }
   await processExternalFormatter(markdownAcc, 'markdownfmt')
