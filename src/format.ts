@@ -1,6 +1,6 @@
 import child_process from 'child_process'
 import { pipeline } from 'stream/promises'
-import { ReadableString, sha1, WritableString } from 'src/utils'
+import { ReadableString, hash, WritableString } from 'src/utils'
 
 const CONTENT_SEPARATOR = 'braindbraindbraind'
 
@@ -24,14 +24,22 @@ interface FormatCache {
   hashSet: Set<string>
 }
 
-const format = async function (note: BraindNote, cache: FormatCache): Promise<string> {
+const format = async function (note: BraindNote, cache: FormatCache): Promise<{
+  output: string
+  cache: FormatCache
+}> {
   const parsedBody = parseBody(note.text)
+
+  let misses = 0
+
   const { latexAcc, markdownAcc } = parsedBody
     .reduce<{
     latexAcc: BatchProcessTemplate[]
     markdownAcc: BatchProcessTemplate[]
   }>(({ latexAcc, markdownAcc }, item, index) => {
     if (!cache.hashSet.has(item.contentHash)) {
+      misses += 1
+      console.log(item.contentHash)
       switch (item.type) {
         case ContentType.markdown:
           markdownAcc.push({
@@ -52,13 +60,21 @@ const format = async function (note: BraindNote, cache: FormatCache): Promise<st
     latexAcc: [],
     markdownAcc: []
   })
+  console.log(misses)
+  console.log(latexAcc.length)
+  console.log(markdownAcc.length)
   await processExternalFormatter(latexAcc, 'latexindent --cruft=/tmp')
   await processExternalFormatter(markdownAcc, 'markdownfmt')
   latexAcc.concat(markdownAcc).forEach((item) => {
     parsedBody[item.oldIndex].content = item.content
-    parsedBody[item.oldIndex].contentHash = sha1(item.content)
+    parsedBody[item.oldIndex].contentHash = hash(item.content)
   })
-  return serializeBody(parsedBody)
+  cache.hashSet.clear()
+  parsedBody.forEach(item => cache.hashSet.add(item.contentHash))
+  return {
+    output: serializeBody(parsedBody),
+    cache
+  }
 }
 
 const parseBody = function (body: string): FormatTemplate[] {
@@ -75,7 +91,7 @@ const parseBody = function (body: string): FormatTemplate[] {
       formatTemplate.push({
         type: prevState,
         content: chunk,
-        contentHash: sha1(chunk)
+        contentHash: hash(chunk)
       })
       formatTemplate.push({
         type: ContentType.delimiter,
@@ -123,7 +139,6 @@ const processExternalFormatter = async (input: BatchProcessTemplate[], argv: str
   await pipeline(formatter.stdout, outputStream)
   formatter.kill()
   const output: string[] = outputStream.toString().split(CONTENT_SEPARATOR)
-  console.log(JSON.stringify(output, undefined, 2))
   // process side effect
   input.forEach((item, index) => {
     item.content = output[index].trim()

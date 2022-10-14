@@ -25,6 +25,7 @@
     "build": "esbuild src/braind.ts --bundle --platform=node --target=node16.17 --outfile=out/out.js"
   },
   "dependencies": {
+    "file-system-cache": "^2.0.1",
     "lodash": "^4.17.21",
     "prettier": "^2.7.1",
     "yaml": "^2.1.3",

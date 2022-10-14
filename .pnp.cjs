@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-import", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:2.26.0"],\
             ["eslint-plugin-n", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:15.3.0"],\
             ["eslint-plugin-promise", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:6.0.1"],\
+            ["file-system-cache", "npm:2.0.1"],\
             ["lodash", "npm:4.17.21"],\
             ["prettier", "npm:2.7.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
@@ -572,6 +573,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-import", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:2.26.0"],\
             ["eslint-plugin-n", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:15.3.0"],\
             ["eslint-plugin-promise", "virtual:7e756cb36a664b8831e9f776efa8850d836b020f4da1d284b446ac4dce312a1e1a40c6f1c6f13b420ff354786cf7ee5767a2825f87dd7c8116a946814ea93ca3#npm:6.0.1"],\
+            ["file-system-cache", "npm:2.0.1"],\
             ["lodash", "npm:4.17.21"],\
             ["prettier", "npm:2.7.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
@@ -1562,6 +1564,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["file-system-cache", [\
+        ["npm:2.0.1", {\
+          "packageLocation": "./.yarn/cache/file-system-cache-npm-2.0.1-182f93a1f9-fba527d852.zip/node_modules/file-system-cache/",\
+          "packageDependencies": [\
+            ["file-system-cache", "npm:2.0.1"],\
+            ["fs-extra", "npm:10.1.0"],\
+            ["ramda", "npm:0.28.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["fill-range", [\
         ["npm:7.0.1", {\
           "packageLocation": "./.yarn/cache/fill-range-npm-7.0.1-b8b1817caa-cc283f4e65.zip/node_modules/fill-range/",\
@@ -1599,6 +1612,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/flatted-npm-3.2.7-0da10b7c56-427633049d.zip/node_modules/flatted/",\
           "packageDependencies": [\
             ["flatted", "npm:3.2.7"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["fs-extra", [\
+        ["npm:10.1.0", {\
+          "packageLocation": "./.yarn/cache/fs-extra-npm-10.1.0-86573680ed-dc94ab3709.zip/node_modules/fs-extra/",\
+          "packageDependencies": [\
+            ["fs-extra", "npm:10.1.0"],\
+            ["graceful-fs", "npm:4.2.10"],\
+            ["jsonfile", "npm:6.1.0"],\
+            ["universalify", "npm:2.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1729,6 +1754,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ignore", "npm:5.2.0"],\
             ["merge2", "npm:1.4.1"],\
             ["slash", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["graceful-fs", [\
+        ["npm:4.2.10", {\
+          "packageLocation": "./.yarn/cache/graceful-fs-npm-4.2.10-79c70989ca-3f109d70ae.zip/node_modules/graceful-fs/",\
+          "packageDependencies": [\
+            ["graceful-fs", "npm:4.2.10"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2073,6 +2107,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["jsonfile", [\
+        ["npm:6.1.0", {\
+          "packageLocation": "./.yarn/cache/jsonfile-npm-6.1.0-20a4796cee-7af3b8e1ac.zip/node_modules/jsonfile/",\
+          "packageDependencies": [\
+            ["jsonfile", "npm:6.1.0"],\
+            ["graceful-fs", "npm:4.2.10"],\
+            ["universalify", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["levn", [\
         ["npm:0.4.1", {\
           "packageLocation": "./.yarn/cache/levn-npm-0.4.1-d183b2d7bb-12c5021c85.zip/node_modules/levn/",\
@@ -2377,6 +2422,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/queue-microtask-npm-1.2.3-fcc98e4e2d-b676f8c040.zip/node_modules/queue-microtask/",\
           "packageDependencies": [\
             ["queue-microtask", "npm:1.2.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["ramda", [\
+        ["npm:0.28.0", {\
+          "packageLocation": "./.yarn/cache/ramda-npm-0.28.0-6a5fe8f6cc-44ea6e5010.zip/node_modules/ramda/",\
+          "packageDependencies": [\
+            ["ramda", "npm:0.28.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2721,6 +2775,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["has-bigints", "npm:1.0.2"],\
             ["has-symbols", "npm:1.0.3"],\
             ["which-boxed-primitive", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["universalify", [\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/universalify-npm-2.0.0-03b8b418a8-2406a4edf4.zip/node_modules/universalify/",\
+          "packageDependencies": [\
+            ["universalify", "npm:2.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
