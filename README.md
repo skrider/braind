@@ -1,12 +1,23 @@
-# `braind v0` 🧠
+# `braind`
 
-A program for taking a bunch of tagged, backlinked markdown notes and turning them into a beautiful, minimal knowledge base, facilitating exporting and interactions. Braind does not replicate any of the functionality of your editor or your file-finding tools. It only responds to file system changes.
+Currently only note formatting is implemented. To use, ensure you have a LaTeX distro with `latexindent`, and install `markdownfmt` via go. Then
 
-Over the course of my search for a note taking system that fit my needs, I found that sooner or later, all of them ended up reinventing the plain boring old file system. I am a believer in the Keep It Super Simple philosophy, and believed that the best note-taking system is not to be found in going up layers of abstraction, but rather in going down.
+```sh
+git clone <url>
+yarn
+yarn build
+alias <aliasname>='node /path/to/out/out.js'
+```
 
-However, the trouble I ran into was that knowledge wants to organize itself associatively, connecting ideas together in a chaotic graph. The file system, however, lends itself to storing information hierarchically. The trouble with this is that my time spent interacting with my notes system, doing chores, grew as the log of my knowledge base size, when it really should be constant-time. This project is an attempt to bring me that functionality.
+`braind format` is optimized for being run a lot on the same note, via format-on-save or a similar editor feature. It splits the document into chunks, tracks which chunks change, and then formats only the changed chunks.
 
-Given a **volume**, braind watches the volume for changes and recompiles the **view**. The view consists of beautifully rendered, interlinked PDF files as well as a
+Then to format notes run `<aliasname> format -w note.md`. To have the alias persist, add it to your `.profile` or other interactive shell init script.
+
+## Overview
+
+Braind is a program for taking a bunch of tagged, backlinked markdown notes and turning them into a beautiful, minimal knowledge base, facilitating exporting and interactions. Braind does not replicate any of the functionality of your editor or your file-finding tools. It only responds to file system changes.
+
+Given a **volume**, braind watches the volume for changes and recompiles the **view**. The view consists of beautifully rendered, interlinked PDF files as well as a directory structure representing tags containing symlinks to notes.
 
 ## Note Properties
 
